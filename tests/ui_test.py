@@ -15,21 +15,21 @@ def test_app_loads():
     driver.maximize_window()
 
     driver.get("https://www.amazon.com.tr/")
-    assert "Amazon" in driver.title  # Assuming your app's title
+    assert "Amazon" in driver.title
     wait.until(EC.presence_of_element_located((By.ID, 'sp-cc-accept')))
     driver.find_element(By.ID, 'sp-cc-accept').click()
     driver.find_element(By.XPATH, '//a[text()="Elektronik"]').click()
-    assert "Elektronik" in driver.title  # Assuming your app's title
+    assert "Elektronik" in driver.title
     
     driver.find_element(By.ID, 's-refinements').find_element(By.XPATH, '//span[text()="Bilgisayarlar, Bileşenleri ve Aksesuarları"]').click()
-    assert "Bilgisayarlar, Bileşenleri ve Aksesuarları" in driver.title  # Assuming your app's title
+    assert "Bilgisayarlar, Bileşenleri ve Aksesuarları" in driver.title
     
     hoverable = driver.find_element(By.CSS_SELECTOR, '#nav-subnav > a:nth-child(5)')
     actionBuilder.move_to_element(hoverable).perform()
     sleep(1)
     laptop = driver.find_element(By.XPATH, '//div[text()="Dizüstü Bilgisayarlar"]')
     actionBuilder.move_to_element(laptop).click().perform()
-    assert "Dizüstü Bilgisayarlar" in driver.title  # Assuming your app's title
+    assert "Dizüstü Bilgisayarlar" in driver.title
     
     wait.until(EC.presence_of_element_located((By.ID, 's-refinements')))
     driver.find_element(By.CSS_SELECTOR, '#s-refinements > div:nth-child(6) > ul > li:nth-child(7) > span > a').click()
@@ -37,7 +37,6 @@ def test_app_loads():
     is_selected_check = driver.find_element(By.CSS_SELECTOR, "#p_123\\/241862 > span > a > div > label > input[type=checkbox]").is_selected()
     assert is_selected_check == True
     
-    # Click the visible dropdown label instead of the select element to avoid click interception
     driver.find_element(By.CSS_SELECTOR, '.a-dropdown-label').click()
     driver.find_element(By.ID, 's-result-sort-select_2').click()
     high_to_low_element = driver.find_element(By.CLASS_NAME, "a-dropdown-prompt")
